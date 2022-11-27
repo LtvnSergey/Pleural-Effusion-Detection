@@ -1,0 +1,26 @@
+# Configuration
+dataset:
+    dir_images: data/raw/images/
+    dir_masks: data/raw/masks/
+    dir_processed: data/processed/
+    image_height: 512
+    image_width: 512
+
+model:
+    architecture: UNet
+    dir_output: output/
+
+train:
+    test_size: 0.2
+    batch_size: 8
+    device: cuda
+    learning_rate: 0.0001
+    beta1: 0.9
+    beta2: 0.999
+    num_epochs: 5
+
+evaluate:
+    batch_size: 8
+    device: cuda
+    threshold: 0.5
+

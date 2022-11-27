@@ -139,10 +139,7 @@ def save_history(history_dict, output_folder):
     :param output_folder:  folder to write csv
     """
     try:
-        with open(os.path.join(output_folder, 'train_history.csv'), 'w') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=history_dict.keys())
-            writer.writeheader()
-            for data in history_dict:
-                writer.writerow(data)
+        pd.DataFrame(history_dict).to_csv(os.path.join(output_folder, 'train_history.csv'),
+                                          index_label='epoch', sep='\t', float_format='%.3f')
     except IOError:
         print("I/O error")

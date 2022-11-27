@@ -106,6 +106,7 @@ if __name__ == '__main__':
             # Add dice value
             pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
             train_dice_total += dice_coefficient(pred_mask, mask)
+            break
 
         # Turn off autogradient
         with torch.no_grad():
@@ -131,6 +132,7 @@ if __name__ == '__main__':
                 # Add dice value
                 pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
                 valid_dice_total += dice_coefficient(pred_mask, mask)
+                break
 
         # Calculate average loss and dice per epoch
         avg_train_loss = train_loss_total / (len(train_dataset) // config['train']['batch_size'])
@@ -145,15 +147,15 @@ if __name__ == '__main__':
         # Update training results
         history['train_loss'].append(avg_train_loss)
         history['valid_loss'].append(avg_valid_loss)
-        history['train_dice'].append(avg_train_loss)
-        history['valid_dice'].append(avg_valid_loss)
+        history['train_dice'].append(avg_train_dice)
+        history['valid_dice'].append(avg_valid_dice)
 
         # Print epoch results
         print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f' % \
               (epoch+1, epochs, avg_train_loss, avg_valid_loss, avg_train_dice, avg_valid_dice))
 
     # Save history file
-    save_history(history)
+    save_history(history, output_folder=config['model']['dir_output'])
 
     # Print time statistics
     end_time = time()
@@ -163,5 +165,3 @@ if __name__ == '__main__':
     print()
 
     print("[INFO] Training complete")
-
-    print(history)

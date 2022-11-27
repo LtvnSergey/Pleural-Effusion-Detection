@@ -55,6 +55,10 @@ if __name__ == '__main__':
                      lr=config['train']['learning_rate'],
                      betas=(config['train']['beta1'], config['train']['beta2']))
 
+    # Define learning rate scheduler
+    lambda_decay = lambda epoch: config['train']['decay_rate'] ** epoch
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_decay)
+
     print("[INFO] Training begin...")
 
     # Collect training results
@@ -78,6 +82,9 @@ if __name__ == '__main__':
         valid_loss_total = 0
         train_dice_total = 0
         valid_dice_total = 0
+
+        # Check learning rate
+        learning_rate = optimizer.param_groups[0]["lr"]
 
         # Iterate through dataloader
         for (image, mask) in train_dataloader:
@@ -105,7 +112,7 @@ if __name__ == '__main__':
 
             # Add dice value
             pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
-            train_dice_total += dice_coefficient(pred_mask, mask)
+            train_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
             break
 
         # Turn off autogradient
@@ -131,14 +138,17 @@ if __name__ == '__main__':
 
                 # Add dice value
                 pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
-                valid_dice_total += dice_coefficient(pred_mask, mask)
+                valid_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
                 break
 
+        # Step learning rate scheduler
+        scheduler.step()
+
         # Calculate average loss and dice per epoch
-        avg_train_loss = train_loss_total / (len(train_dataset) // config['train']['batch_size'])
-        avg_valid_loss = valid_loss_total / (len(valid_dataset) // config['train']['batch_size'])
-        avg_train_dice = train_dice_total / (len(train_dataset) // config['train']['batch_size'])
-        avg_valid_dice = valid_dice_total / (len(valid_dataset) // config['train']['batch_size'])
+        avg_train_loss = train_loss_total / (len(train_dataloader))
+        avg_valid_loss = valid_loss_total / (len(valid_dataloader))
+        avg_train_dice = train_dice_total / (len(train_dataloader))
+        avg_valid_dice = valid_dice_total / (len(valid_dataloader))
 
         # Check if loss on current epoch is the best
         if avg_valid_loss < best_loss_score:
@@ -151,8 +161,8 @@ if __name__ == '__main__':
         history['valid_dice'].append(avg_valid_dice)
 
         # Print epoch results
-        print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f' % \
-              (epoch+1, epochs, avg_train_loss, avg_valid_loss, avg_train_dice, avg_valid_dice))
+        print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f, lr: %5.4f' % \
+              (epoch + 1, epochs, avg_train_loss, avg_valid_loss, avg_train_dice, avg_valid_dice, learning_rate))
 
     # Save history file
     save_history(history, output_folder=config['model']['dir_output'])

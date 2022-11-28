@@ -7,9 +7,13 @@ from torch.nn import BCEWithLogitsLoss
 from torch.optim import Adam
 import model
 import torch
-from dice_coef import dice_coefficient
+from dice_coef import dice_coefficient, DiceLoss
+import os
+import segmentation_models_pytorch as smp
+
 
 CONFIG_FILE = 'config.yaml'
+
 
 if __name__ == '__main__':
 
@@ -47,8 +51,11 @@ if __name__ == '__main__':
     net = NetClass(outSize=(config['dataset']['image_height'],
                             config['dataset']['image_width'])).to(config['train']['device'])
 
+    # net.load_state_dict(torch.load('output/model_state_final_6.ckpt'))
+
     # Define loss function
-    criterion = BCEWithLogitsLoss()
+    # criterion = BCEWithLogitsLoss()
+    criterion  =   smp.losses.DiceLoss(mode='binary')
 
     # Define optimizer
     optimizer = Adam(net.parameters(),
@@ -113,7 +120,7 @@ if __name__ == '__main__':
             # Add dice value
             pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
             train_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
-            break
+
 
         # Turn off autogradient
         with torch.no_grad():
@@ -139,7 +146,7 @@ if __name__ == '__main__':
                 # Add dice value
                 pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
                 valid_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
-                break
+
 
         # Step learning rate scheduler
         scheduler.step()
@@ -153,6 +160,9 @@ if __name__ == '__main__':
         # Check if loss on current epoch is the best
         if avg_valid_loss < best_loss_score:
             best_loss_score = avg_valid_loss
+            # torch.save(net.state_dict(),
+            #            os.path.join(config['model']['dir_output'],
+            #                         'model_state.ckpt'))
 
         # Update training results
         history['train_loss'].append(avg_train_loss)
@@ -161,7 +171,7 @@ if __name__ == '__main__':
         history['valid_dice'].append(avg_valid_dice)
 
         # Print epoch results
-        print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f, lr: %5.4f' % \
+        print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f, lr: %5.7f' % \
               (epoch + 1, epochs, avg_train_loss, avg_valid_loss, avg_train_dice, avg_valid_dice, learning_rate))
 
     # Save history file
@@ -173,5 +183,9 @@ if __name__ == '__main__':
     print('Time total:     %5.2f sec' % (end_time - start_time))
     print('Time per epoch: %5.2f sec' % ((end_time - start_time) / epochs))
     print()
+
+    # torch.save(net.state_dict(),
+    #            os.path.join(config['model']['dir_output'],
+    #                         'model_state_final_7.ckpt'))
 
     print("[INFO] Training complete")

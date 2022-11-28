@@ -143,3 +143,6 @@ def save_history(history_dict, output_folder):
                                           index_label='epoch', sep='\t', float_format='%.3f')
     except IOError:
         print("I/O error")
+
+
+# def  save_d_image()

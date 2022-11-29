@@ -38,6 +38,7 @@ class ImageDataset(Dataset):
             else:
                 self.meta = self.meta.iloc[idx_train]
 
+        # Apply normalization if necessary
         if normalization:
             self.normalization = T.Normalize(std=443, mean=-720)
 
@@ -45,6 +46,7 @@ class ImageDataset(Dataset):
         """
         Get item from dataset according to index from meta-file
         :param idx: index
+        :return image, mask: image and mask as (1, X, Y) tensors
         """
         index = 'arr_' + str(self.meta.iloc[idx]['index'])
 
@@ -59,5 +61,6 @@ class ImageDataset(Dataset):
     def __len__(self):
         """
         Get length of dataset
+        :return length of the dataset
         """
         return len(self.meta)

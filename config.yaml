@@ -7,21 +7,20 @@ dataset:
     image_width: 512
 
 model:
-    architecture: UNet
     dir_output: output/
 
 train:
     test_size: 0.2
     batch_size: 8
     device: cuda
-    learning_rate: 0.00002
+    learning_rate: 0.0001
     beta1: 0.9
     beta2: 0.999
-    num_epochs: 10
+    num_epochs: 30
     decay_rate: 1
 
 evaluate:
-    batch_size: 8
+    batch_size: 1
     device: cuda
     threshold: 0.5
 

@@ -145,4 +145,19 @@ def save_history(history_dict, output_folder):
         print("I/O error")
 
 
-# def  save_d_image()
+def  save_dice_image(epoch, dice, output_dir):
+    """
+    # Save plot of dice coefficient over epoch
+    :param epoch:  current epoch
+    :param dice:  dice coefficient value
+    :param: output_dir: output folder
+    """
+
+    epochs = [i+1 for i in range(epoch+1)]
+    plt.plot(epochs, dice)
+    plt.title('DICE coefficient for validation set')
+    plt.xlabel('Epoch')
+    plt.ylabel('DICE coef')
+    plt.ylim(0, 1)
+    plt.grid(visible=True)
+    plt.savefig(os.path.join(output_dir, 'DICE_coef.png'))

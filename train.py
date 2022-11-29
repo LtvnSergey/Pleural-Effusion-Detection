@@ -1,21 +1,25 @@
 import numpy as np
 from time import time
-from utils import load_config, save_history
+from utils import load_config, save_history, save_dice_image
 from dataset import ImageDataset
 from torch.utils.data import DataLoader
-from torch.nn import BCEWithLogitsLoss
 from torch.optim import Adam
-import model
+from  model import Net
 import torch
-from dice_coef import dice_coefficient, DiceLoss
+from dice_coef import dice_coefficient
 import os
 import segmentation_models_pytorch as smp
+from torch.utils.tensorboard import SummaryWriter
+from monai.visualize import plot_2d_or_3d_image
 
 
 CONFIG_FILE = 'config.yaml'
 
 
 if __name__ == '__main__':
+
+    # Set fixed random number seed
+    torch.manual_seed(1234)
 
     # Load configuration
     config = load_config(CONFIG_FILE)
@@ -44,18 +48,14 @@ if __name__ == '__main__':
 
     print("[INFO] Data is ready for training")
 
-    # Get model class from models.py
-    NetClass = getattr(model, config['model']['architecture'])
+    # Initialize Tensorboard writer
+    writer = SummaryWriter()
 
     # Define model
-    net = NetClass(outSize=(config['dataset']['image_height'],
-                            config['dataset']['image_width'])).to(config['train']['device'])
-
-    # net.load_state_dict(torch.load('output/model_state_final_6.ckpt'))
+    net = Net.to(config['train']['device'])
 
     # Define loss function
-    # criterion = BCEWithLogitsLoss()
-    criterion  =   smp.losses.DiceLoss(mode='binary')
+    criterion = smp.losses.DiceLoss(mode='binary')
 
     # Define optimizer
     optimizer = Adam(net.parameters(),
@@ -75,7 +75,11 @@ if __name__ == '__main__':
     history['valid_loss'] = []
     history['valid_dice'] = []
 
+    # initialize best model scores and epoch
+    best_epoch = -999
     best_loss_score = np.Inf
+
+    # Set number of epochs
     epochs = config['train']['num_epochs']
     start_time = time()
 
@@ -121,18 +125,20 @@ if __name__ == '__main__':
             pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
             train_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
 
-
         # Turn off autogradient
         with torch.no_grad():
-
             # Set model to evaluation mode
             net.eval()
 
+            i = 0
             # Iterate through dataloader
             for (image, mask) in valid_dataloader:
                 # Send input to device
                 image = image.to(config['train']['device'])
                 mask = mask.to(config['train']['device'])
+
+                if epoch == 0 and i == 0:
+                    writer.add_graph(net, input_to_model=image, verbose=False)
 
                 # Make prediction
                 pred = net(image)
@@ -145,8 +151,15 @@ if __name__ == '__main__':
 
                 # Add dice value
                 pred_mask = (torch.sigmoid(pred) > config['evaluate']['threshold'])
-                valid_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
 
+                # Add examples to Tensorboard
+                if i == 155:
+                    plot_2d_or_3d_image(image[0], epoch + 1, writer, index=0, tag="Input image")
+                    plot_2d_or_3d_image(mask[0], epoch + 1, writer, index=0, tag="Ground truth mask")
+                    plot_2d_or_3d_image(pred_mask[0], epoch + 1, writer, index=0, tag="Predicted mask")
+
+                valid_dice_total += dice_coefficient(pred_mask.detach().cpu(), mask.detach().cpu())
+                i += 1
 
         # Step learning rate scheduler
         scheduler.step()
@@ -157,12 +170,11 @@ if __name__ == '__main__':
         avg_train_dice = train_dice_total / (len(train_dataloader))
         avg_valid_dice = valid_dice_total / (len(valid_dataloader))
 
-        # Check if loss on current epoch is the best
-        if avg_valid_loss < best_loss_score:
-            best_loss_score = avg_valid_loss
-            # torch.save(net.state_dict(),
-            #            os.path.join(config['model']['dir_output'],
-            #                         'model_state.ckpt'))
+        # Add losses and dice metric values to Tensorboard
+        writer.add_scalar('Loss train', avg_train_loss, epoch)
+        writer.add_scalar('Loss valid', avg_valid_loss, epoch)
+        writer.add_scalar('Dice train', avg_train_dice, epoch)
+        writer.add_scalar('Dice valid', avg_valid_dice, epoch)
 
         # Update training results
         history['train_loss'].append(avg_train_loss)
@@ -170,22 +182,36 @@ if __name__ == '__main__':
         history['train_dice'].append(avg_train_dice)
         history['valid_dice'].append(avg_valid_dice)
 
+        # Check if loss on current epoch is the best
+        if avg_valid_loss < best_loss_score:
+            best_loss_score = avg_valid_loss
+            best_epoch = epoch
+            torch.save(net.state_dict(),
+                       os.path.join(config['model']['dir_output'],
+                                    'model_state.ckpt'))
+
+            # Save history file
+            save_history(history, output_folder=config['model']['dir_output'])
+            save_dice_image(epoch, history['valid_dice'],
+                            output_dir=config['model']['dir_output'])
+
+
         # Print epoch results
         print('Epoch %3d/%3d, train loss: %5.3f, val loss: %5.3f, train dice: %5.3f, val dice: %5.3f, lr: %5.7f' % \
               (epoch + 1, epochs, avg_train_loss, avg_valid_loss, avg_train_dice, avg_valid_dice, learning_rate))
 
     # Save history file
     save_history(history, output_folder=config['model']['dir_output'])
+    save_dice_image(epoch, history['valid_dice'],
+                    output_dir=config['model']['dir_output'])
 
-    # Print time statistics
+    # Print time statistics and number of best epoch
     end_time = time()
     print()
     print('Time total:     %5.2f sec' % (end_time - start_time))
     print('Time per epoch: %5.2f sec' % ((end_time - start_time) / epochs))
+    print(f'Best epoch: {best_epoch:.0f}')
     print()
 
-    # torch.save(net.state_dict(),
-    #            os.path.join(config['model']['dir_output'],
-    #                         'model_state_final_7.ckpt'))
-
     print("[INFO] Training complete")
+    writer.close()

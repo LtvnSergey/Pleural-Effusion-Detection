@@ -51,15 +51,20 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 - Dice coefficient was used to estimate quality of predicted masks.
 
 - Dice coefficient is 2 times The area of Overlap divided by the total number of pixels in both the images
-(image)
 
-(formula)
+<img src="https://user-images.githubusercontent.com/35038779/204766842-4fe0044e-a1f8-4f56-83df-859836d86ef3.png" width="400">
+<em>source: Biomedical Image Segmentation - U-Net
+https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/</em>
+
+
 
 ### Neural network architecture
 
-UNet architecture was used for segmentation problem as it achives very good performance on very different biomedical segmentation applications according to various papers and articles.
+UNet architecture was used to solve this segmentation problem as it achives very good performance on very different biomedical segmentation applications according to various papers and articles.
 
-(image of arch)
+([U-Net: Convolutional Networks for Biomedical
+Image Segmentation
+Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf))
 
 U-net architecture (example for 32x32 pixels in the lowest resolution). Each blue
 box corresponds to a multi-channel feature map. The number of channels is denoted

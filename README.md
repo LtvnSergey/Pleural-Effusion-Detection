@@ -177,7 +177,7 @@ Weights of the model with best loss on validation set is stored here: [model_sta
 
 Total history of training including all losses and metric values is stored here: [histiry.csv](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/train_history.csv)
 
-PLot of Dice coefficient on validation set per epoch is stored here: [DICE_coef.png](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/DICE_coef.png) 
+Plot of Dice coefficient on validation set per epoch is stored here: [DICE_coef.png](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/DICE_coef.png) 
 
 
 Some illustrates of input images, ground truth and predicted masks as well as DICE score:

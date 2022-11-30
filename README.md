@@ -27,8 +27,19 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 - 1087 one-channel images of MRI scans
 - 1087 binary masks for every image indicating pleural effusion  
 
+
 - [Raw images](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/data/raw/images) were provided in special ".dcm" format which is used in medcine - 
-- Raw masks were stored as compressed NIFTI files (.nii.gz) 
+- [Raw masks](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/data/raw/images)  were stored as compressed NIFTI files (.nii.gz) 
+
+
+- Raw data were read and stored as numpy arrays in compressed ".npz" format in [processed data](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/data/processed) folder. That way not only data occupies less space, but these types of files supports 'lazy IO' which means we can get access to specific image/mask by index and we dont need to read the whole dataset and store it to operative memory.
+
+
+- Also special [meta-file](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/data/processed/meta_file.csv) was created which inlcudes indexes of all images and masks stored in '.npz' files, corresponding patient id folder and flag that indicates if mask is empty or not
+
+- 
+
+
 
 ### Evaluation
 - Dice coefficient was used to estimate quality of predicted masks.

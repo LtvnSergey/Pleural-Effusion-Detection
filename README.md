@@ -15,6 +15,7 @@ Pleural effusions can be investigating with magnetic resonance methods (MRI). On
 Based on the MRI images of lungs and masks of pleural effusions we will try to train segmentational neural network to detect this condition 
 
 ## Contents
+  - [Insallation](#installation)
   - [Data description](#data-description)
   - [Evaluation](#evaluation)
   - [Neural network architecture](#neural-network-architecture)
@@ -22,6 +23,18 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
   - [Results](#results)
   - [Demo](#demo)
   - [Modules and tools](#modules-and-tools)
+
+### Insallation
+
+To install project follow these step (instruction for Linux):
+  1. Install pip: ```sudo apt install python3-pip```
+    
+  3. Install git: ```pip install git```
+  
+  4. Clone project: ``` git clone https://github.com/LtvnSergey/Pleural-Effusion-Detection.git ```
+ 
+  5. Install Tensorboard: ``` pip install tesnorboard```
+
 
 ### Data description
 - 1087 one-channel images of MRI scans
@@ -62,16 +75,19 @@ https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/</e
 
 UNet architecture was used to solve this segmentation problem as it achives very good performance on very different biomedical segmentation applications according to various papers and articles.
 
-([U-Net: Convolutional Networks for Biomedical
-Image Segmentation
-Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf))
-
-U-net architecture (example for 32x32 pixels in the lowest resolution). Each blue
-box corresponds to a multi-channel feature map. The number of channels is denoted
-on top of the box. The x-y-size is provided at the lower left edge of the box. White
-boxes represent copied feature maps. The arrows denote the different operations.
+- In this article you can find usefull and detailed information about U-Net architecture: ['U-Net: Convolutional Networks for Biomedical
+Image Segmentation' by Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf)
 
 Image Courtesy: UNet [Ronneberger et al.]
+
+
+tensorboard --logdir='runs'
+
+
+![image](https://user-images.githubusercontent.com/35038779/204790041-33e0c8ec-3cae-42ce-8113-404a47a4e002.png)
+
+
+
 
 
 ### Training

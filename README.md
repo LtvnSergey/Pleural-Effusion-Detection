@@ -19,6 +19,7 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
   - [Installation](#installation)
   - [Data description](#data-description)
   - [Evaluation](#evaluation)
+  - [Preprocessing](#preprocessing)
   - [Neural network architecture](#neural-network-architecture)
   - [Training](#training)
   - [Results](#results)
@@ -67,9 +68,14 @@ To install project follow these step (instruction for Linux):
 - Dice coefficient is 2 times The area of Overlap divided by the total number of pixels in both the images
 
 <img src="https://user-images.githubusercontent.com/35038779/204766842-4fe0044e-a1f8-4f56-83df-859836d86ef3.png" width="400">
-<em>source: Biomedical Image Segmentation - U-Net
-https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/</em>
+<em>source: [Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)</em>
 
+
+### Preprocessing
+
+- Input image data was normilized before training
+
+- 80% data were used for training and 20% for validation. Both sets had equal amount of zero and non-zero masks 
 
 
 ### Neural network architecture
@@ -79,6 +85,14 @@ UNet architecture was used to solve this segmentation problem as it achives very
 - In this article you can find usefull and detailed information about U-Net architecture: ['U-Net: Convolutional Networks for Biomedical
 Image Segmentation' by Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf)
 
+
+- U-net architecture was used for training with following parameters:
+
+  - Resnet 18 as an encoder. More information about ResNet18 you can find in this article ['Deep Residual Learning for Image Recognition'](https://arxiv.org/pdf/1512.03385.pdf)
+
+  - 9 million total parameters
+
+  - 
 
 tensorboard --logdir='runs'
 

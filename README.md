@@ -60,8 +60,6 @@ To install project follow these step (instruction for Linux):
 - In the notebook [Input_Analysis.ipynb](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/notebook/Pleural-Effusion-Detection%20-%20Input%20Analysis.ipynb)  you can find additional information about input data and statistics
 
 
-
-
 ### Evaluation
 - Dice coefficient was used to estimate quality of predicted masks.
 
@@ -92,13 +90,20 @@ Image Segmentation' by Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https
 
   - 9 million total parameters
 
-  - 
+  - Pre-trained Imagenet weights. Due to low amount (~1000) of high-resolution data (512x512) its better to try to use transfer learning.
 
-tensorboard --logdir='runs'
+  - 1 channel input data
 
+  - 1 channel output corresponding to predicted binary mask
 
-![image](https://user-images.githubusercontent.com/35038779/204790041-33e0c8ec-3cae-42ce-8113-404a47a4e002.png)
+- Model defenition you can find in file [model.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/model.py)
 
+- For more detaled information about model architecture follow the tab 'Graph' in Tesnorboard.
+To do so, run this command in the project directory:  
+
+  ```tensorboard --logdir='runs' ```
+
+![Example of model graph in Tensorboard](https://user-images.githubusercontent.com/35038779/204790041-33e0c8ec-3cae-42ce-8113-404a47a4e002.png)
 
 
 
@@ -110,12 +115,13 @@ tensorboard --logdir='runs'
 
 - Loss function: Dice loss for binary mask
 - Optimizer: Adam (momentum1 = 0.9, momentum2 = 0.999)
-- Learning rate: 
-- Number of epoches:
+- Learning rate: 0.0001
+- Number of epoches: 26
 
 - Hardware CPU: AMD Ryzen 4000
 - Hardware GPU: Nvidia RTX2060 16Gb
-- Estimated training time: 
+
+- Estimated training time: 1860 sec (~61 sec/eppoch)
 
 ### Results
 

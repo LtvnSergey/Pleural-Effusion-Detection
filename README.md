@@ -17,6 +17,7 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 
 ## Contents
   - [Installation](#installation)
+  - [Project Structure](#project-structure)
   - [Data description](#data-description)
   - [Preprocessing](#preprocessing)
   - [Neural network architecture](#neural-network-architecture)
@@ -36,6 +37,21 @@ To install project follow these step (instruction for Linux):
  
   5. Install Tensorboard: ``` pip install tesnorboard```
 
+
+### Project structure
+
+- Input data: [data](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/data)
+- Notebooks: [notebbok](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/notebook) 
+- Output data: [ouput](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/output)
+- Logs for Tensorboard: [runs](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/runs/Nov29_19-12-40_ltvn-sergey)
+- Configuration file: [config.yaml](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/config.yaml)
+- Custom dataset class: [dataset.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/dataset.py)
+- Model definition: [model.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/model.py)
+- Dice coefficient function: [dice_coef.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/dice_coef.py)
+- Processing dataset: [preprocessing.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/preprocessing.py)
+- Train model: [train.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/train.py)
+- Auxilary functions: [utils.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/utils.py)
+- Requierments: [requirements.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/requirements.txt)
 
 ### Data description
 - 1087 one-channel images of MRI scans

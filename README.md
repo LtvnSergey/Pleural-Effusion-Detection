@@ -1,8 +1,9 @@
 # Pleural-Effusion-Detection
 
+Detect pleural effusion using neural network 
+
 ![Screenshot from 2022-11-30 11-08-52](https://user-images.githubusercontent.com/35038779/204744843-8a9d4867-5f3a-4078-a6e7-9d36d3c586e3.png)
 
-Detect pleural effusion using neural network 
 
 # Project overview
 
@@ -15,7 +16,7 @@ Pleural effusions can be investigating with magnetic resonance methods (MRI). On
 Based on the MRI images of lungs and masks of pleural effusions we will try to train segmentational neural network to detect this condition 
 
 ## Contents
-  - [Insallation](#installation)
+  - [Installation](#installation)
   - [Data description](#data-description)
   - [Evaluation](#evaluation)
   - [Neural network architecture](#neural-network-architecture)
@@ -24,7 +25,7 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
   - [Demo](#demo)
   - [Modules and tools](#modules-and-tools)
 
-### Insallation
+### Installation
 
 To install project follow these step (instruction for Linux):
   1. Install pip: ```sudo apt install python3-pip```
@@ -77,8 +78,6 @@ UNet architecture was used to solve this segmentation problem as it achives very
 
 - In this article you can find usefull and detailed information about U-Net architecture: ['U-Net: Convolutional Networks for Biomedical
 Image Segmentation' by Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf)
-
-Image Courtesy: UNet [Ronneberger et al.]
 
 
 tensorboard --logdir='runs'

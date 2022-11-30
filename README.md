@@ -118,6 +118,20 @@ Estimated time:
 - Per epoch: ~61 sec
 
 
+In Tensorboard we can check how predicted masks were changing during training:
+
+- Groound truth - Input image - Predicted mask: 1 epoch
+![image](https://user-images.githubusercontent.com/35038779/204858333-160c14df-2142-4e51-a8ec-dc8a1bf573fd.png)
+
+- Groound truth - Input image - Predicted mask: 20 epochs
+![image](https://user-images.githubusercontent.com/35038779/204858383-ebd00285-df97Grour-4a28-b029-abda406133b9.png)
+
+- Groound truth - Input image - Predicted mask: 26 epochs
+![image](https://user-images.githubusercontent.com/35038779/204858454-e7038576-4674-4a15-b7f3-8969a31b3386.png)
+
+
+
+
 
 ### Evaluation
 - Dice coefficient was used to estimate quality of predicted masks.
@@ -130,15 +144,22 @@ Estimated time:
 [Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)
 
 
+- Dice loss on training and validation sets:
 
 ![Dice loss on training and validation sets](https://user-images.githubusercontent.com/35038779/204856887-8bbc3f33-0e65-4566-94ed-1a491fdbfb92.png)
 
 
+- Dice metric on training and validation sets:
+ 
 ![Dice metric on training and validation sets](https://user-images.githubusercontent.com/35038779/204856654-9c393dd8-98f1-42ae-9f60-3e1815c82936.png)
 
 
+- The best DICE score on validation set ~0.95 
+
 
 ### Results
+
+
 
 ### Modules and tools
 

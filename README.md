@@ -27,7 +27,8 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 - 1087 one-channel images of MRI scans
 - 1087 binary masks for every image indicating pleural effusion  
 
-- 
+- Raw inages were provided in special ".dcm" format which is used in medcine
+- Raw masks were stored as compressed NIFTI files (.nii.gz) 
 
 ### Evaluation
 - Dice coefficient was used to estimate quality of predicted masks.

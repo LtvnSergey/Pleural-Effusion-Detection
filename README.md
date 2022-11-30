@@ -81,12 +81,13 @@ To install project follow these step (instruction for Linux):
 UNet architecture was used to solve this segmentation problem as it achives very good performance on very different biomedical segmentation applications according to various papers and articles.
 
 - In this article you can find usefull and detailed information about U-Net architecture: ['U-Net: Convolutional Networks for Biomedical
-Image Segmentation' by Olaf Ronneberger, Philipp Fischer, and Thomas Brox](https://arxiv.org/pdf/1505.04597.pdf)
+Image Segmentation'](https://arxiv.org/pdf/1505.04597.pdf)
 
 
 - U-net architecture was used for training with following parameters:
 
-  - Resnet 18 as an encoder. More information about ResNet18 you can find in this article ['Deep Residual Learning for Image Recognition'](https://arxiv.org/pdf/1512.03385.pdf)
+  - Resnet 18 as an encoder. 
+    More information about ResNet18 you can find in this article: ['Deep Residual Learning for Image Recognition'](https://arxiv.org/pdf/1512.03385.pdf)
 
   - 9 million total parameters
 

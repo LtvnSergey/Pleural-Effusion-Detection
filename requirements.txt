@@ -1,0 +1,11 @@
+numpy~=1.23.3
+torch~=1.12.1
+monai~=1.0.1
+SimpleITK~=2.2.0
+nibabel~=4.0.2
+pandas~=1.4.3
+PyYAML~=5.4.1
+matplotlib~=3.5.3
+sklearn~=0.0
+scikit-learn~=1.1.2
+torchvision~=0.13.1

@@ -118,19 +118,17 @@ Estimated time:
 - Per epoch: ~61 sec
 
 
+
 In Tensorboard we can check how predicted masks were changing during training:
 
-- Groound truth - Input image - Predicted mask: 1 epoch
+- Ground truth - Input image - Predicted mask: 1 epoch
 ![image](https://user-images.githubusercontent.com/35038779/204858333-160c14df-2142-4e51-a8ec-dc8a1bf573fd.png)
 
-- Groound truth - Input image - Predicted mask: 20 epochs
-![image](https://user-images.githubusercontent.com/35038779/204858383-ebd00285-df97Grour-4a28-b029-abda406133b9.png)
+- Ground truth - Input image - Predicted mask: 16 epochs
+![image](https://user-images.githubusercontent.com/35038779/204859157-7e562b50-fb3d-4529-b8b1-a0bd2ab7c0aa.png)
 
-- Groound truth - Input image - Predicted mask: 26 epochs
+- Ground truth - Input image - Predicted mask: 26 epochs
 ![image](https://user-images.githubusercontent.com/35038779/204858454-e7038576-4674-4a15-b7f3-8969a31b3386.png)
-
-
-
 
 
 ### Evaluation
@@ -159,9 +157,16 @@ In Tensorboard we can check how predicted masks were changing during training:
 
 ### Results
 
+Some illustrates of input images, ground truth and predicted masks as well as DICE score:
+
+![image](https://user-images.githubusercontent.com/35038779/204859944-39157d77-51f1-4d9b-8397-752f8e64b409.png)
+
+![image](https://user-images.githubusercontent.com/35038779/204860453-142118ac-0723-43da-8cf1-0ec290bcfc5c.png)
+
+More results you can find in notebook: [Predicted_results](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/notebook/Pleural-Effusion-Detection%20-%20Prediction.ipynb)
 
 
 ### Modules and tools
 
 #### Python-CNN:
-Python | Pandas | Numpy | Pillow | Torch | Torchvision
+Python | Pandas | Numpy | PyYAML | Torch | Torchvision | Sklearn | SimpleITK | Nibabel

@@ -18,12 +18,11 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 ## Contents
   - [Installation](#installation)
   - [Data description](#data-description)
-  - [Evaluation](#evaluation)
   - [Preprocessing](#preprocessing)
   - [Neural network architecture](#neural-network-architecture)
   - [Training](#training)
+  - [Evaluation](#evaluation)
   - [Results](#results)
-  - [Demo](#demo)
   - [Modules and tools](#modules-and-tools)
 
 ### Installation
@@ -60,15 +59,6 @@ To install project follow these step (instruction for Linux):
 - In the notebook [Input_Analysis.ipynb](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/notebook/Pleural-Effusion-Detection%20-%20Input%20Analysis.ipynb)  you can find additional information about input data and statistics
 
 
-### Evaluation
-- Dice coefficient was used to estimate quality of predicted masks.
-
-- Dice coefficient is 2 times The area of Overlap divided by the total number of pixels in both the images
-
-<img src="https://user-images.githubusercontent.com/35038779/204766842-4fe0044e-a1f8-4f56-83df-859836d86ef3.png" width="400">
-<em>source: [Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)</em>
-
-
 ### Preprocessing
 
 - Input image data was normilized before training
@@ -97,9 +87,9 @@ Image Segmentation'](https://arxiv.org/pdf/1505.04597.pdf)
 
   - 1 channel output corresponding to predicted binary mask
 
-- Model defenition you can find in file [model.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/model.py)
+- Model defenition is in file [model.py](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/model.py)
 
-- For more detaled information about model architecture follow the tab 'Graph' in Tesnorboard.
+- It is possible to investigate the  whole graph of the net in the tab 'Graph' of Tesnorboard.
 To do so, run this command in the project directory:  
 
   ```tensorboard --logdir='runs' ```
@@ -111,23 +101,32 @@ To do so, run this command in the project directory:
 
 ### Training
 
-- Initial data was split into training set (80%) and validation set (20%)
-- Input images were normalized
+Following parameters were used during training:
 
 - Loss function: Dice loss for binary mask
 - Optimizer: Adam (momentum1 = 0.9, momentum2 = 0.999)
 - Learning rate: 0.0001
+- Batch size: 8
 - Number of epoches: 26
 
-- Hardware CPU: AMD Ryzen 4000
-- Hardware GPU: Nvidia RTX2060 16Gb
+Hardware used:
+- CPU: AMD Ryzen 4000
+- GPU: Nvidia RTX2060 16Gb
 
-- Estimated training time: 1860 sec (~61 sec/eppoch)
+Estimated time:
+- Total: 1860 sec
+- Per epoch: ~61 sec
 
-### Results
 
 
-### Demo
+### Evaluation
+- Dice coefficient was used to estimate quality of predicted masks.
+
+- Dice coefficient is 2 times The area of Overlap divided by the total number of pixels in both the images
+
+<img src="https://user-images.githubusercontent.com/35038779/204766842-4fe0044e-a1f8-4f56-83df-859836d86ef3.png" width="400">
+<em>source: [Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)</em>
+
 
 
 ### Modules and tools

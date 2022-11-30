@@ -39,8 +39,7 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 - Also special [meta-file](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/data/processed/meta_file.csv) was created which inlcudes indexes of all images and masks stored in '.npz' files, corresponding patient id folder and flag that indicates if mask is empty or not.
 
 
-- Turns out 43% masks are non zero, which means 57% of samples are without plueral effusion. During split on train and validation sets this was taken into account.
-
+- Turns out 43% masks are non zero, which means 57% of samples are without plueral effusion. During split on train and validation sets this has been taken into account.
 
 
 - In the notebook [Input_Analysis.ipynb](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/notebook/Pleural-Effusion-Detection%20-%20Input%20Analysis.ipynb)  you can find additional information about input data and statistics

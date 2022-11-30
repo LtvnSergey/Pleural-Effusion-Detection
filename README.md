@@ -1,9 +1,14 @@
 # Pleural-Effusion-Detection
+
+![Screenshot from 2022-11-30 11-08-52](https://user-images.githubusercontent.com/35038779/204744843-8a9d4867-5f3a-4078-a6e7-9d36d3c586e3.png)
+
 Detect pleural effusion using neural network 
 
 # Project overview
 
 Pleural effusion is an unusual amount of fluid around the lung. 
+
+![image](https://user-images.githubusercontent.com/35038779/204744882-ae481140-068b-4892-9579-4bb26178ed99.png)
 
 Pleural effusions can be investigating with magnetic resonance methods (MRI). On the image above you can see the slice image of lungs using MRI. On this slice pleural effusion looks like grey-solid area (E) inside MRI-transparent healthy part of lungs.  
 
@@ -22,6 +27,7 @@ Based on the MRI images of lungs and masks of pleural effusions we will try to t
 - 1087 one-channel images of MRI scans
 - 1087 binary masks for every image indicating pleural effusion  
 
+- 
 
 ### Evaluation
 - Dice coefficient was used to estimate quality of predicted masks.

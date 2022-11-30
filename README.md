@@ -41,7 +41,7 @@ To install project follow these step (instruction for Linux):
 ### Project structure
 
 - Input data: [data](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/data)
-- Notebooks: [notebbok](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/notebook) 
+- Notebooks: [notebook](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/notebook) 
 - Output data: [ouput](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/output)
 - Logs for Tensorboard: [runs](https://github.com/LtvnSergey/Pleural-Effusion-Detection/tree/main/runs/Nov29_19-12-40_ltvn-sergey)
 - Configuration file: [config.yaml](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/config.yaml)
@@ -172,6 +172,13 @@ In Tensorboard we can check how predicted masks were changing during training:
 
 
 ### Results
+
+Weights of the model with best loss on validation set is stored here: [model_state.ckpt](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/model_state.ckpt)
+
+Total history of training including all losses and metric values is stored here: [histiry.csv](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/train_history.csv)
+
+PLot of Dice coefficient on validation set per epoch is stored here: [DICE_coef.png](https://github.com/LtvnSergey/Pleural-Effusion-Detection/blob/main/output/DICE_coef.png) 
+
 
 Some illustrates of input images, ground truth and predicted masks as well as DICE score:
 

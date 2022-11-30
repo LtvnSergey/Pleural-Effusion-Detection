@@ -125,9 +125,20 @@ Estimated time:
 - Dice coefficient is 2 times The area of Overlap divided by the total number of pixels in both the images
 
 <img src="https://user-images.githubusercontent.com/35038779/204766842-4fe0044e-a1f8-4f56-83df-859836d86ef3.png" width="400">
-<em>source: [Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)</em>
+<em>Source</em>:
+
+[Biomedical Image Segmentation - U-Net](https://jinglescode.github.io/2019/11/07/biomedical-image-segmentation-u-net/)
 
 
+
+![Dice loss on training and validation sets](https://user-images.githubusercontent.com/35038779/204856887-8bbc3f33-0e65-4566-94ed-1a491fdbfb92.png)
+
+
+![Dice metric on training and validation sets](https://user-images.githubusercontent.com/35038779/204856654-9c393dd8-98f1-42ae-9f60-3e1815c82936.png)
+
+
+
+### Results
 
 ### Modules and tools
 
